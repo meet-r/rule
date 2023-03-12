@@ -9,23 +9,23 @@ mixed-port: 7890
 # port: 7890
 
 # SOCKS5 代理端口
-socks-port: 7891
+# socks-port: 7891
 
 # Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
 # redir-port: 7892
 
 # 允许局域网的连接（可用来共享代理）
-allow-lan: false
+# allow-lan: true
 
 # 仅在将allow-lan设置为true时适用
 # #"*": 绑定所有IP地址
 # #192.168.122.11: 绑定单个IPv4地址
 # #"[aaaa::a8aa:ff:fe09:57d8]": 绑定单个IPv6地址
 bind-address: "*"
-ipv6: false
+# ipv6: true
 
 # 规则模式：rule（规则） / global（全局代理）/ direct（全局直连）/ script (脚本)
-# mode: rule
+mode: rule
 
 # 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
 # 5 个级别：silent / error / warning / info / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
@@ -46,8 +46,8 @@ external-controller: '127.0.0.1:9090'
 # secret: ""
 
 # 实验性功能
-experimental:
-  ignore-resolve-fail: true # 忽略 DNS 解析失败，默认值为 true
+# experimental:
+  # ignore-resolve-fail: true # 忽略 DNS 解析失败，默认值为 true
   # interface-name: en0 # outbound interface name
 
 # 本地 SOCKS5 / HTTP(S) 服务认证
@@ -62,16 +62,20 @@ experimental:
 #   '*.clash.dev': 127.0.0.1
 #   'alpha.clash.dev': '::1'
 
-#dns:
-  #enable: true # 是否启用dns false
-  #ipv6: false
+dns:
+  enable: true # 是否启用dns false
+  ipv6: false
+  default-nameserver:
+     - 223.5.5.5
+     - 119.29.29.29
   #listen: 0.0.0.0:53
-  #enhanced-mode: redir-host # 模式：redir-host或fake-ip
-  #fake-ip-range: 198.18.0.1/16 #
+  enhanced-mode: fake-ip # 模式：redir-host或fake-ip
+  fake-ip-range: 198.18.0.1/16 #
+  use-hosts: true
   #fake-ip-filter: # fake ip 白名单列表，如果你不知道这个参数的作用，请勿修改
      #- '*.lan'
      #- localhost.ptlogin2.qq.com
-  #nameserver:
+  nameserver:
      #- 223.5.5.5 # 阿里DNS
      #- 180.76.76.76 # 百度DNS
      #- 119.29.29.29 # 腾讯DNS
@@ -80,7 +84,9 @@ experimental:
      #- 114.114.114.114 # 114DNS
      #- https://dns.alidns.com/dns-query # 阿里 DoH DNS
      #- https://doh.360.cn/dns-query # 360 DoH DNS
-  #fallback:
+     - https://dns.alidns.com/dns-query
+     - https://doh.pub/dns-query
+  fallback:
      #- 8.8.8.8 # 谷歌DNS
      #- 1.1.1.1 # Cloudflare DNS
      #- tls://dns.rubyfish.cn:853
@@ -89,10 +95,15 @@ experimental:
      #- https://dns.rubyfish.cn/dns-query
      #- https://cloudflare-dns.com/dns-query
      #- https://dns.google/dns-query
-  #fallback-filter:
-     #geoip: true # 默认
-     #ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
-       #- 240.0.0.0/4
+     - https://doh.dns.sb/dns-query
+     - https://dns.cloudflare.com/dns-query
+     - https://dns.twnic.tw/dns-query
+     - tls://8.8.4.4:853
+  fallback-filter:
+     geoip: true # 默认
+     ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
+       - 240.0.0.0/4
+       - 0.0.0.0/32
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
