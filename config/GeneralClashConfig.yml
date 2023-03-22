@@ -70,8 +70,8 @@ dns:
     fake-ip-range: 198.18.0.1/16
     use-hosts: true
     nameserver: [223.5.5.5, 119.29.29.29]
-#    fallback: [8.8.4.4, 208.67.222.222, 'https://dns.google/dns-query']
-#    fallback-filter: { geoip: true, geoip-code: CN, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+    fallback: [8.8.4.4, 208.67.222.222]
+    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
