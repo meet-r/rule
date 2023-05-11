@@ -64,14 +64,15 @@ external-controller: '127.0.0.1:9090'
 
 dns:
     enable: true
-#    ipv6: false
+    ipv6: false
     default-nameserver: [223.5.5.5]
+# , 8.8.8.8
     enhanced-mode: fake-ip
     fake-ip-range: 198.18.0.1/16
-#    use-hosts: true
+    use-hosts: true 
     nameserver: [223.5.5.5]
-#    fallback: [8.8.8.8], 8.8.8.8
-#    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+    fallback: [8.8.8.8]
+    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
