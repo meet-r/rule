@@ -68,7 +68,7 @@ dns:
     default-nameserver: [8.8.8.8]
 # , 8.8.8.8
     enhanced-mode: fake-ip
-    fake-ip-range: 198.18.0.1/16
+#    fake-ip-range: 198.18.0.1/16
 #    use-hosts: true 
     nameserver: [8.8.8.8]
 #    fallback: [8.8.8.8]
