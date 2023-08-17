@@ -15,7 +15,7 @@ socks-port: 7891
 # redir-port: 7892
 
 # 允许局域网的连接（可用来共享代理）
-allow-lan: false 
+allow-lan: true
 
 # 仅在将allow-lan设置为true时适用
 # #"*": 绑定所有IP地址
@@ -64,15 +64,15 @@ external-controller: '127.0.0.1:9090'
 
 dns:
     enable: true
-#    ipv6: false
-    default-nameserver: [8.8.8.8]
+    ipv6: false
+    default-nameserver: [223.5.5.5, 119.29.29.29]
 # , 8.8.8.8
     enhanced-mode: fake-ip
-#    fake-ip-range: 198.18.0.1/16
-#    use-hosts: true 
-    nameserver: [8.8.8.8]
-#    fallback: [8.8.8.8]
-#    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+    fake-ip-range: 198.18.0.1/16
+    use-hosts: true 
+    nameserver: ['https://doh.pub/dns-query', 'https://dns.alidns.com/dns-query']
+    fallback: ['https://doh.dns.sb/dns-query', 'https://dns.cloudflare.com/dns-query', 'https://dns.twnic.tw/dns-query', 'tls://8.8.4.4:853']
+    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
 
 # 1. clash DNS 请求逻辑：
 #   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
